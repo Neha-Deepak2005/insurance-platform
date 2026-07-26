@@ -12,10 +12,8 @@ class Config:
 class DevelopmentConfig(Config):
     """Development configuration"""
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.getenv(
-        'DATABASE_URL',
-        'postgresql://postgres:password@localhost:5432/insurance_db'
-    )
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///insurance.db'
+    
 
 class ProductionConfig(Config):
     """Production configuration"""
