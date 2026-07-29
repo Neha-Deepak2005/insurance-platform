@@ -9,6 +9,9 @@ from routes.policies import policies_bp
 from routes.claims import claims_bp
 import os
 from datetime import datetime
+from flask import send_from_directory
+import os
+
 
 def create_app(config_name='development'):
     """Create and configure Flask app"""
@@ -31,6 +34,14 @@ def create_app(config_name='development'):
     app.register_blueprint(customers_bp)
     app.register_blueprint(policies_bp)
     app.register_blueprint(claims_bp)
+
+    # Frontend serving
+    @app.route('/')
+    @app.route('/<path:path>')
+    def serve_frontend(path=''):
+        if path != '' and os.path.exists(os.path.join('static', path)):
+            return send_from_directory('static', path)
+        return send_from_directory('static', 'index.html')
     
     # Error handlers
     @app.errorhandler(404)
