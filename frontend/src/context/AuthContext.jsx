@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const AuthContext = createContext();
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = 'https://insurance-platform-ovra.onrender.com/api';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -45,12 +45,12 @@ export const AuthProvider = ({ children }) => {
         email,
         password
       });
-      
+
       const { access_token, user: userData } = response.data;
       localStorage.setItem('token', access_token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
       setUser(userData);
-      
+
       return { success: true };
     } catch (err) {
       const message = err.response?.data?.error || 'Login failed';
@@ -71,12 +71,12 @@ export const AuthProvider = ({ children }) => {
         password,
         role
       });
-      
+
       const { access_token, user: userData } = response.data;
       localStorage.setItem('token', access_token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
       setUser(userData);
-      
+
       return { success: true };
     } catch (err) {
       const message = err.response?.data?.error || 'Registration failed';
