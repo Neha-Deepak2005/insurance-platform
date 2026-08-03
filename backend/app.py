@@ -24,7 +24,7 @@ def create_app(config_name='development'):
     db.init_app(app)
     bcrypt.init_app(app)
     JWTManager(app)
-    CORS(app)
+    CORS(app, origins=["https://insurance-platform-ovra.onrender.com"])
     
     # Create upload folder
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
